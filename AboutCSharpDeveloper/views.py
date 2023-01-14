@@ -1,37 +1,35 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from HeadHunterLoader import get_c_sharp_vacs
-
-menu = [
-    {'title': 'Востребованность', 'url_name': 'relevance'},
-    {'title': 'География', 'url_name': 'geography'},
-    {'title': 'Навыки', 'url_name': 'skills'},
-    {'title': 'Последние вакансии', 'url_name': 'recent_vacancies'},
-]
+from django.shortcuts import render, get_object_or_404
+from .models import *
 
 
 def index(request):
+    chartPages = PageForCharts.objects.all()
     context = {
-        'menu': menu
+        'chartPages': chartPages
     }
     return render(request, 'AboutCSharpDeveloper/index.html', context)
 
 
-def relevance(request):
+def show_page_for_chart(request, page_for_charts_slug):
+    chartPages = PageForCharts.objects.all()
+    page_for_charts_id = PageForCharts.objects.get(slug=page_for_charts_slug).id
+    charts = Chart.objects.filter(page=page_for_charts_id)
     context = {
-        'menu': menu
+        'charts': charts,
+        'chartPages': chartPages,
     }
-    return render(request, 'AboutCSharpDeveloper/relevance.html', context)
+    return render(request, 'AboutCSharpDeveloper/page_for_charts.html', context)
 
 
-def geography(request):
-    return render(request, 'AboutCSharpDeveloper/geography.html')
-
-
-def skills(request):
-    return render(request, 'AboutCSharpDeveloper/skills.html')
+def show_chart(request, chart_slug):
+    return HttpResponse(f'Страница с графиком {chart_slug}')
 
 
 def recent_vacancies(request):
-    vacs = get_c_sharp_vacs(2022, 12, 20)
-    return render(request, 'AboutCSharpDeveloper/recent_vacancies.html')
+    # vacs = get_c_sharp_vacs(2022, 12, 20)
+    chartPages = PageForCharts.objects.all()
+    context = {
+        'chartPages': chartPages
+    }
+    return render(request, 'AboutCSharpDeveloper/recent_vacancies.html', context)

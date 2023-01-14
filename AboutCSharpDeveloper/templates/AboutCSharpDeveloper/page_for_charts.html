@@ -1,0 +1,18 @@
+{% extends 'AboutCSharpDeveloper/base.html' %}
+
+{% block content %}
+    <div class="my_card_container">
+        {% for chart in charts %}
+            <div class="card my_card">
+                <img src="{{ chart.chart.url }}" class="card-img-top" alt="chart">
+                <div class="card-body">
+                    <h5 class="card-title">{{ chart.name }}</h5>
+                    <p class="card-text">
+                        {{ chart.table }}
+                    </p>
+                    <a href="{{ chart.get_absolute_url }}" class="btn btn-dark">Смотреть</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -79,5 +79,5 @@ def get_c_sharp_vacs(year: int, month: int, day: int):
         result.append(df)
         i += df.shape[0]
         if i > 10: break
-    return pd.concat(result, ignore_index=True).head(10).to_dict()
+    return pd.concat(result, ignore_index=True).head(10)
 

@@ -19,10 +19,11 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto sidenav" id="navAccordion">
-                    <li class="nav-item active">
-                        {% for item in menu %}
-                        <a class="nav-link" href="{% url item.url_name %}">{{ item.title }}</a>
+                    <li class="nav-item">
+                        {% for chartPage in chartPages %}
+                        <a class="nav-link" href="{{ chartPage.get_absolute_url }}">{{ chartPage.name }}</a>
                         {% endfor %}
+                        <a class="nav-link" href="{% url 'recent_vacancies' %}">Последние вакансии</a>
                     </li>
                 </ul>
             </div>
