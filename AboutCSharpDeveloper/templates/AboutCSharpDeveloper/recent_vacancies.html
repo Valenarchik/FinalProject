@@ -1,5 +1,62 @@
 {% extends 'AboutCSharpDeveloper/base.html' %}
 
 {% block content %}
-
+    <ul class="list-reset vacs_container">
+        {% for vac in vacs %}
+            <li class="vac_container">
+                <!--Название-->
+                <h3 class="vac_name">
+                    {{ vac.name }}
+                </h3>
+                <!--Описание-->
+                <p>
+                    <a class="btn btn-dark" data-bs-toggle="collapse" href="#desc{{ forloop.counter }}"
+                       role="button"
+                       aria-expanded="false" aria-controls="collapseExample">
+                        Описание
+                    </a>
+                </p>
+                <div class="collapse mb-2" id="desc{{ forloop.counter }}">
+                    <div class="card card-body">
+                        {{ vac.description }}
+                    </div>
+                </div>
+                <!--Навыки-->
+                {% if vac.skills_are_there %}
+                    <p>
+                        <a class="btn btn-dark" data-bs-toggle="collapse" href="#skills{{ forloop.counter }}"
+                           role="button"
+                           aria-expanded="false" aria-controls="collapseExample">
+                            Навыки
+                        </a>
+                    </p>
+                    <div class="collapse mb-1" id="skills{{ forloop.counter }}">
+                        <ul class="list-reset skills_list">
+                            {% for slill in vac.key_skills %}
+                                <li class="skill">
+                                    {{ slill }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <!--Компания-->
+                <p class="company">
+                    Компания : {{ vac.employer_name }}
+                </p>
+                <!--Оклад-->
+                <p class="salary">
+                    Оклад : {{ vac.salary }} {{ vac.salary_currency }}
+                </p>
+                <!--Регион-->
+                <p class="area_name">
+                    Регион : {{ vac.area_name }}
+                </p>
+                <!--Дата-->
+                <p class="data">
+                    Дата публикации : {{ vac.published_at|date:"Y-m-d" }}
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
