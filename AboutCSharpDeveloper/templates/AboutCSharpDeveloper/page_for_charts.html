@@ -4,12 +4,9 @@
     <div class="my_card_container">
         {% for chart in charts %}
             <div class="card my_card">
-                <img src="{{ chart.chart.url }}" class="card-img-top" alt="chart" style="width: 50%">
+                <img src="{{ chart.chart.url }}" class="card-img-top" alt="chart">
                 <div class="card-body">
-                    <h5 class="card-title">{{ chart.name }}</h5>
-                    <p class="card-text">
-                        {{ chart.table }}
-                    </p>
+                    <h2 class="card-title">{{ chart.name }}</h2>
                     <a href="{{ chart.get_absolute_url }}" class="btn btn-dark">
                         Смотреть
                     </a>

@@ -1,8 +1,8 @@
 {% extends 'AboutCSharpDeveloper/base.html' %}
 
 {% block content %}
-    <h3 style="margin-bottom: 15px">{{ chart.name }}</h3>
-    <img src="{{ chart.chart.url }}" style="width: 50%; margin-bottom: 15px" alt="chart">
+    <h3>{{ chart.name }}</h3>
+    <img src="{{ chart.chart.url }}" class="chart" alt="chart">
     <p class="card-text">
         {{ chart.table }}
     </p>
