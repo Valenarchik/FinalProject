@@ -14,14 +14,23 @@ body {
     padding: 0;
 }
 
-.my_card_container {
-    display: flex;
-    flex-direction: column;
+.input-reset {
+    border: none;
+    background-color: transparent;
 }
 
-.my_card:not(:last-child) {
-    margin-bottom: 32px;
+.input-date {
+    overflow: hidden;
+    border: #231F20 solid 1px;
+    border-radius: 10px;
+    padding: 10px;
 }
+
+.my_card_container {
+    display: flex;;
+}
+
+
 
 .skill {
     padding: 7px 20px;
@@ -36,11 +45,13 @@ body {
     letter-spacing: 2px;
     transition: 0.3s all linear;
 }
-.my_slide{
+
+.my_slide {
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 15px;
 }
+
 .vac_container:not(:last-child) {
     margin-bottom: 15px;
 }
@@ -94,6 +105,33 @@ body {
     content: counter(li);
 }
 
+.form_container {
+    margin-bottom: 32px;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+}
+
+.errorlist {
+    list-style: none;
+    color: red;
+    font-size: 16px;
+    padding: 0;
+}
+
+.form_label {
+    align-self: center;
+}
+
+.chart{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
 @media (min-width: 992px) {
     .sidenav {
         position: absolute;
@@ -118,5 +156,26 @@ body {
     .footer {
         width: calc(100% - 230px);
         margin-left: 230px;
+    }
+
+    .my_card_container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .my_card {
+        width: calc((100% - 32px) / 2);
+    }
+
+    .my_card:not(:nth-child(2n)) {
+        margin-right: 32px;
+    }
+
+    .my_card:not(:nth-last-child(1)):not(:nth-last-child(2)) {
+        margin-bottom: 32px;
+    }
+
+    .chart{
+        width: 50%;
     }
 }
