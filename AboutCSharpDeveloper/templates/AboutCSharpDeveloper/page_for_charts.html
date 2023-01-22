@@ -5,9 +5,9 @@
         {% for chart in charts %}
             <div class="card my_card">
                 <img src="{{ chart.chart.url }}" class="card-img-top" alt="chart">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h2 class="card-title">{{ chart.name }}</h2>
-                    <a href="{{ chart.get_absolute_url }}" class="btn btn-dark">
+                    <a href="{{ chart.get_absolute_url }}" class="btn btn-dark mt-auto">
                         Смотреть
                     </a>
                 </div>

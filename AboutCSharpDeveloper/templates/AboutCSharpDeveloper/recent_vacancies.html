@@ -3,9 +3,9 @@
 {% block content %}
     {{ form.date.errors }}
     <div class="card card-body form_container">
-        <form class="form" action="{% url 'recent_vacancies' %}" method="post">
+        <form class="d-flex flex-sm-row flex-column" action="{% url 'recent_vacancies' %}" method="post">
             {% csrf_token %}
-            <label class="form_label me-3" for="{{ form.date.id_for_label }}">
+            <label class="form_label me-sm-3 mb-sm-0 mb-3" for="{{ form.date.id_for_label }}">
                 Укажите пожалуйста дату не позже 30 дней:
             </label>
             {{ form.date }}

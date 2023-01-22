@@ -1,7 +1,9 @@
+import time
+
 import requests
 import json
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, date
 from multiprocessing import Pool
 
 datetime_format = "%Y-%m-%dT%H:%M:%S"
@@ -64,20 +66,22 @@ def load_page(per_page: int, page: int, date_from: datetime,
 
 def load_book(date_from: datetime, date_to: datetime) -> pd.DataFrame:
     data = [(100, page, date_from, date_to) for page in range(20)]
-    with Pool(24) as pool:
+    with Pool(20) as pool:
         frames = pool.starmap(load_page, data)
     return pd.concat(frames, ignore_index=True)
 
 
-def get_c_sharp_vacs(year: int, month: int, day: int) -> pd.DataFrame:
+def get_c_sharp_vacs(date: date) -> pd.DataFrame:
     search_for = ['c#', 'c sharp', 'шарп', '.net', 'с#']
     search_for = ' or '.join([f"name.str.contains('{item}', case=False, regex=False)" for item in search_for])
-    date_from = datetime(year, month, day, 0, 0, 0)
-    date_to = datetime(year, month, day, 23, 59, 59)
+    date_from = datetime(date.year, date.month, date.day, 0, 0, 0)
+    date_to = datetime(date.year, date.month, date.day, 23, 59, 59)
     df_result = (load_book(date_from, date_to)
                  .query(search_for, engine='python')
                  .head(10))
-    df_result = pd.DataFrame([load_all_data_for_vac(url) for url in df_result['url']])
+    with Pool(10) as pool:
+        temp = list(pool.map(load_all_data_for_vac, list(df_result['url'])))
+    df_result = pd.DataFrame(temp)
     func = lambda x: __merge_salary(x['salary_from'], x['salary_to'])
     return df_result \
         .assign(salary=df_result.apply(func, axis=1)) \
@@ -90,8 +94,3 @@ def __merge_salary(salary_from, salary_to):
     if pd.isnull(salary_to):
         return int(salary_from)
     return int((salary_from + salary_to) / 2)
-
-
-if __name__ == '__main__':
-    vacs = get_c_sharp_vacs(2022, 12, 20)
-    print(vacs['published_at'])

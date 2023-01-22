@@ -27,10 +27,17 @@ body {
 }
 
 .my_card_container {
-    display: flex;;
+    display: flex;
+    flex-direction: column;
 }
 
+.my_card {
+    width: 100%;
+}
 
+.my_card:not(:last-child) {
+    margin-bottom: 32px;
+}
 
 .skill {
     padding: 7px 20px;
@@ -111,11 +118,6 @@ body {
     flex-direction: column;
 }
 
-.form {
-    display: flex;
-    flex-direction: row;
-}
-
 .errorlist {
     list-style: none;
     color: red;
@@ -127,7 +129,7 @@ body {
     align-self: center;
 }
 
-.chart{
+.chart {
     width: 100%;
     margin-bottom: 15px;
 }
@@ -167,6 +169,10 @@ body {
         width: calc((100% - 32px) / 2);
     }
 
+    .my_card:not(:last-child) {
+        margin-bottom: 0;
+    }
+
     .my_card:not(:nth-child(2n)) {
         margin-right: 32px;
     }
@@ -175,7 +181,11 @@ body {
         margin-bottom: 32px;
     }
 
-    .chart{
+    .chart {
         width: 50%;
+    }
+
+    .my_slide {
+        width: 60%;
     }
 }
