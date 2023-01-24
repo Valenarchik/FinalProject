@@ -1,5 +1,3 @@
-import time
-
 import requests
 import json
 import pandas as pd
@@ -58,7 +56,9 @@ def load_page(per_page: int, page: int, date_from: datetime,
              f"specialization=1&"
              f"per_page={per_page}&page={page}&"
              f"date_from={date_from}&date_to={date_to}&"
-             f"only_with_salary=true")
+             f"only_with_salary=true&"
+             f"search_field=name&"
+             f"text=c%23 OR с%23 OR шарп OR .net OR 'c sharp'")
     response = get_request_or_exception(https)
     items = json.loads(response.text)['items']
     return pd.DataFrame(items)
@@ -72,13 +72,9 @@ def load_book(date_from: datetime, date_to: datetime) -> pd.DataFrame:
 
 
 def get_c_sharp_vacs(date: date) -> pd.DataFrame:
-    search_for = ['c#', 'c sharp', 'шарп', '.net', 'с#']
-    search_for = ' or '.join([f"name.str.contains('{item}', case=False, regex=False)" for item in search_for])
     date_from = datetime(date.year, date.month, date.day, 0, 0, 0)
     date_to = datetime(date.year, date.month, date.day, 23, 59, 59)
-    df_result = (load_book(date_from, date_to)
-                 .query(search_for, engine='python')
-                 .head(10))
+    df_result = load_page(10, 0, date_from=date_from, date_to=date_to)
     with Pool(10) as pool:
         temp = list(pool.map(load_all_data_for_vac, list(df_result['url'])))
     df_result = pd.DataFrame(temp)
