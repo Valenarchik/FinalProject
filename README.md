@@ -6,5 +6,7 @@
 
 Сайт выложен на хостинг: http://valenarchik.pythonanywhere.com
 
+![image](https://user-images.githubusercontent.com/101575777/232448943-34cf062e-d932-4323-8cc4-de669468abda.png)
 
-<img src="https://user-images.githubusercontent.com/101575777/232434403-1e2f1247-94a0-42ae-9bc7-250d53f2961f.png" width="100" height="100">
+![image](https://user-images.githubusercontent.com/101575777/232449151-4addb653-399a-4777-ac03-6540d6018d0b.png)
+
